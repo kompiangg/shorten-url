@@ -55,26 +55,26 @@ func HashFunc(valueLongURI int) string {
 func InsertingHash(hashShortednedURI* map[string]string, longURI string, shortenedURI* string) {
 	var found bool
 	validAlphabet := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	linearProbationInt := -1
-	linearProbationString := *shortenedURI
+	linearProbingInt := -1
+	linearProbingString := *shortenedURI
 
-	_, found = (*hashShortednedURI)[linearProbationString]
+	_, found = (*hashShortednedURI)[linearProbingString]
 
 	if (found == true) {
-		for found == true && linearProbationInt < 52{
-			linearProbationInt++
-			if(linearProbationInt == 52) {
-				linearProbationString += string(validAlphabet[linearProbationInt - 1]);
-				linearProbationInt = 0
+		for found == true && linearProbingInt < 52{
+			linearProbingInt++
+			if(linearProbingInt == 52) {
+				linearProbingString += string(validAlphabet[linearProbingInt - 1]);
+				linearProbingInt = 0
 			}
-			_, found = (*hashShortednedURI)[linearProbationString+string(validAlphabet[linearProbationInt])]
+			_, found = (*hashShortednedURI)[linearProbingString+string(validAlphabet[linearProbingInt])]
 		}
-		if (linearProbationInt < 52) {
-			linearProbationString += string(validAlphabet[linearProbationInt]);
+		if (linearProbingInt < 52) {
+			linearProbingString += string(validAlphabet[linearProbingInt]);
 		}
 	}
 
-	*shortenedURI = linearProbationString
+	*shortenedURI = linearProbingString
 	(*hashShortednedURI)[*shortenedURI] = longURI
 }
 
