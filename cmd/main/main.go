@@ -90,7 +90,7 @@ func main() {
 	clearMap := make(map[string]func())
 	InitClearScreen(&clearMap)
 	
-	for menu != 5 {
+	for true {
 		fmt.Println("Kompiang Gede Sukadharma")
 		fmt.Println("       2008561083")
 		fmt.Println("Menu")
@@ -98,6 +98,7 @@ func main() {
 		fmt.Println("[2] Cari URI asli")
 		fmt.Println("[3] Hapus URI yang dipendekkan")
 		fmt.Println("[4] Lihat semua URI pendek yang dibuat")
+		fmt.Println("[5] Exit")
 		fmt.Print("Input: ");
 		fmt.Scanln(&menu)
 
@@ -150,13 +151,21 @@ func main() {
 				break
 
 			case 3:
-				fmt.Print("Masukkan short URI yang ingin dihapus : ");
+				fmt.Print("Masukkan short URI yang ingin dihapus (kompiangg.com juga ditulis) : ");
 				fmt.Scanln(&shortenedURI);
 				if shortenedURI == "" { 
 					fmt.Println("URI tidak boleh kosong")
 					break
 				}
-				delete(hashShortenedURI, shortenedURI)
+
+				splittedShortenedURI := strings.Split(shortenedURI, "/")
+				if len(splittedShortenedURI) <= 1 {
+					fmt.Println("Format Short URI anda salah")
+					shortenedURI = ""
+					break
+				}
+				
+				delete(hashShortenedURI, splittedShortenedURI[1])
 				fmt.Println("Short URI berhasil dihapus")
 				shortenedURI = ""
 				break
@@ -176,6 +185,7 @@ func main() {
 				fmt.Println("Menu yang diinput salah")
 				break
 		}
+		if (menu == 5) {break} 
 		menu = 0;
 		// Clear Screen
 		bufio.NewReader(os.Stdin).ReadString('\n')
